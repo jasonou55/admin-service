@@ -3,7 +3,7 @@ package com.jarvis.adminservice.request;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BaseRequest {
+public class GenericRequestImpl implements GenericRequest {
 
     private String identifier;
     private Long created;
@@ -19,6 +19,9 @@ public class BaseRequest {
     }
 
     public Long getCreated() {
+        if (this.created == null) {
+            this.setCreated(System.currentTimeMillis());
+        }
         return created;
     }
 
@@ -27,6 +30,9 @@ public class BaseRequest {
     }
 
     public Long getCreatedBy() {
+        if (this.createdBy == null) {
+            this.setCreatedBy(0L);
+        }
         return createdBy;
     }
 
@@ -35,6 +41,9 @@ public class BaseRequest {
     }
 
     public Boolean getActive() {
+        if (this.active == null) {
+            this.setActive(true);
+        }
         return active;
     }
 

@@ -4,7 +4,7 @@ import com.jarvis.adminservice.enums.ErrorCode;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ErrorResponse extends BaseResponse {
+public class ErrorResponse extends GenericResponseImpl {
 
     private ErrorCode errorCode;
     private String message;

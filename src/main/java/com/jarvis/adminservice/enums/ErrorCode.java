@@ -19,8 +19,8 @@ public enum ErrorCode {
      * Bucket 3
      */
     INTERNAL_ERROR_PROCESSOR(30000, "An internal error occurred while processing."),
-    NULL_POINTER(30001, "An null pointer error occurred.");
-
+    NULL_POINTER(30001, "An null pointer error occurred."),
+    GENERATE_IDENTIFIER_ERROR(30002, "Generate identifier failed.");
 
     private final int code;
     private final String message;

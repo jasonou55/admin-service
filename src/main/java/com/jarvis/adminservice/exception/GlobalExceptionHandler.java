@@ -19,6 +19,8 @@ public class GlobalExceptionHandler {
         errorResponse.setErrorCode(ErrorCode.NULL_POINTER);
         errorResponse.setMessage(ErrorCode.NULL_POINTER.getMessage());
 
+        np.printStackTrace();
+
         return ResponseEntity.status(500).body(errorResponse);
     }
 
@@ -31,6 +33,8 @@ public class GlobalExceptionHandler {
         errorResponse.setErrorCode(se.getErrorCode());
         errorResponse.setMessage(se.getMessage());
 
+        se.printStackTrace();
+
         return ResponseEntity.status(se.getStatusCode()).body(errorResponse);
     }
 
@@ -42,6 +46,8 @@ public class GlobalExceptionHandler {
         errorResponse.setSuccess(false);
         errorResponse.setErrorCode(ErrorCode.INTERNAL_ERROR_PROCESSOR);
         errorResponse.setMessage(e.getMessage());
+
+        e.printStackTrace();
 
         return ResponseEntity.status(500).body(errorResponse);
     }

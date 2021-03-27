@@ -1,14 +1,10 @@
 package com.jarvis.adminservice.entity;
 
-import org.springframework.stereotype.Repository;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
-@Repository
-@Entity
-@Table(name = "navigations")
-public class Navigation extends BaseEntity {
+@Entity(name = "navigations")
+public class Navigation extends GenericEntityImpl {
 
     @Column(nullable = false)
     private String icon;

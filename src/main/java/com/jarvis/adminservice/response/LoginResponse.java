@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class LoginResponse extends BaseResponse {
+public class LoginResponse extends GenericResponseImpl {
 
     private String token;
     private List<Navigation> navigation;

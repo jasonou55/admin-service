@@ -1,7 +1,10 @@
 package com.jarvis.adminservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jarvis.adminservice.enums.ErrorCode;
+import com.jarvis.adminservice.exception.ServiceException;
 import com.jarvis.adminservice.util.IdentifierGenerator;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Column;
@@ -10,60 +13,69 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import java.util.Optional;
+
 @Repository
 @javax.persistence.Entity
-public class BaseEntity {
+public class GenericEntityImpl implements GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     @JsonIgnore
-    private long id;
+    protected long id;
 
     @Column(nullable = false)
-    private long created;
+    protected long created;
 
     @Column(nullable = false)
-    private long createdBy;
+    protected long createdBy;
 
     @Column(nullable = false)
-    private boolean active;
+    protected boolean enabled;
 
     @Transient
-    private String identifier;
+    protected String identifier;
 
+    @Override
     public long getId() {
         return id;
     }
 
+    @Override
     public void setId(final long id) {
         this.id = id;
     }
-
+    @Override
     public long getCreated() {
         return created;
     }
 
+    @Override
     public void setCreated(final long created) {
         this.created = created;
     }
 
+    @Override
     public long getCreatedBy() {
         return createdBy;
     }
 
+    @Override
     public void setCreatedBy(final long createdBy) {
         this.createdBy = createdBy;
     }
 
-    public boolean getActive() {
-        return active;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setActive(final boolean active) {
-        this.active = active;
+    @Override
+    public void setEnabled(final boolean enabled) {
+        this.enabled = enabled;
     }
 
+    @Override
     public String getIdentifier() {
         if (identifier == null) {
             this.setIdentifier();
@@ -71,7 +83,16 @@ public class BaseEntity {
         return identifier;
     }
 
+    @Override
     public void setIdentifier() {
-        this.identifier = IdentifierGenerator.getIdentifierFromId(this.id, this.created).get();
+
+        Optional<String> identifierOptional = IdentifierGenerator.getIdentifierFromId(this.id, this.created);
+        if (!identifierOptional.isPresent()) {
+            throw new ServiceException(
+                    ErrorCode.GENERATE_IDENTIFIER_ERROR,
+                    ErrorCode.GENERATE_IDENTIFIER_ERROR.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        this.identifier = identifierOptional.get();
     }
 }
