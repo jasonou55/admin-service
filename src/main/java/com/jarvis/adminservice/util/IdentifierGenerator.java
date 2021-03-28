@@ -20,7 +20,11 @@ public class IdentifierGenerator {
         String timestampStr = String.valueOf(timestamp);
         int idLength = idStr.length();
         identifierBuilder.append(idStr);
-        identifierBuilder.append(timestampStr.substring(timestampStr.length() - (13 - idLength)));
+        if (timestampStr.length() - (13 - idLength) > 0) {
+            identifierBuilder.append(timestampStr.substring(timestampStr.length() - (13 - idLength)));
+        } else {
+            identifierBuilder.append(timestampStr);
+        }
 
         try {
             identifierBuilder.append(NumberUtilities.toBase((long)idLength, 10, 2));

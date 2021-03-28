@@ -9,11 +9,11 @@ public class Navigation extends GenericEntityImpl {
     @Column(nullable = false)
     private String icon;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String title;
 
     @Column(nullable = false)
-    private String to;
+    private String toUrl;
 
     public String getIcon() {
         return icon;
@@ -31,11 +31,11 @@ public class Navigation extends GenericEntityImpl {
         this.title = title;
     }
 
-    public String getTo() {
-        return to;
+    public String getToUrl() {
+        return toUrl;
     }
 
-    public void setTo(final String to) {
-        this.to = to;
+    public void setToUrl(final String toUrl) {
+        this.toUrl = toUrl;
     }
 }

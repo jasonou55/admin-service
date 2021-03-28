@@ -6,48 +6,54 @@ import org.springframework.stereotype.Component;
 public class GenericRequestImpl implements GenericRequest {
 
     private String identifier;
-    private Long created;
-    private Long createdBy;
-    private Boolean active;
+    private long created;
+    private long createdBy;
+    private boolean enabled;
 
+    public GenericRequestImpl() {
+        this.enabled = true;
+    }
+
+    @Override
     public String getIdentifier() {
         return identifier;
     }
 
+    @Override
     public void setIdentifier(final String identifier) {
         this.identifier = identifier;
     }
 
-    public Long getCreated() {
-        if (this.created == null) {
+    @Override
+    public long getCreated() {
+        if (this.created == 0) {
             this.setCreated(System.currentTimeMillis());
         }
         return created;
     }
 
-    public void setCreated(final Long created) {
+    @Override
+    public void setCreated(final long created) {
         this.created = created;
     }
 
-    public Long getCreatedBy() {
-        if (this.createdBy == null) {
-            this.setCreatedBy(0L);
-        }
+    @Override
+    public long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(final Long createdBy) {
+    @Override
+    public void setCreatedBy(final long createdBy) {
         this.createdBy = createdBy;
     }
 
-    public Boolean getActive() {
-        if (this.active == null) {
-            this.setActive(true);
-        }
-        return active;
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setActive(final Boolean active) {
-        this.active = active;
+    @Override
+    public void setEnabled(final boolean enable) {
+        this.enabled = enable;
     }
 }

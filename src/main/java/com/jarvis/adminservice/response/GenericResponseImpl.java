@@ -1,27 +1,28 @@
 package com.jarvis.adminservice.response;
 
-import com.jarvis.adminservice.entity.GenericEntityImpl;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GenericResponseImpl implements GenericResponse {
 
     private boolean success;
-    private GenericEntityImpl genericEntityImpl;
+    private Object data;
 
     public boolean isSuccess() {
         return success;
     }
 
+    @Override
     public void setSuccess(final boolean success) {
         this.success = success;
     }
 
-    public GenericEntityImpl getBaseEntity() {
-        return genericEntityImpl;
+    public Object getData() {
+        return data;
     }
 
-    public void setBaseEntity(final GenericEntityImpl genericEntityImpl) {
-        this.genericEntityImpl = genericEntityImpl;
+    @Override
+    public void setData(final Object data) {
+        this.data = data;
     }
 }

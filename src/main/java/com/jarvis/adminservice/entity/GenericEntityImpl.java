@@ -5,18 +5,16 @@ import com.jarvis.adminservice.enums.ErrorCode;
 import com.jarvis.adminservice.exception.ServiceException;
 import com.jarvis.adminservice.util.IdentifierGenerator;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Repository;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import java.util.Optional;
 
-@Repository
-@javax.persistence.Entity
+@MappedSuperclass
 public class GenericEntityImpl implements GenericEntity {
 
     @Id
