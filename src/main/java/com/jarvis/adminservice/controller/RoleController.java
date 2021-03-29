@@ -35,30 +35,19 @@ public class RoleController extends GenericController<Role, RoleRequest, RoleRes
     }
 
     @Override
-    public RoleResponse getResponse() {
-        return new RoleResponse();
+    public RoleService getService() {
+        return roleService;
     }
 
     @Override
-    public RoleService getService() {
-        return roleService;
+    public RoleResponse getResponse() {
+        return new RoleResponse();
     }
 
     @GetMapping("/roles")
     @ResponseBody
     public ResponseEntity<RoleResponse> get() {
-
-        String state = request.getParameter(PathParameterConstants.STATE);
-        if (state == null) {
-            return this.doGetAll();
-        }
-        if (state.equalsIgnoreCase(PathParameterConstants.ENABLED)) {
-            return this.doGetAllEnabled();
-        }
-        if (state.equalsIgnoreCase(PathParameterConstants.DISABLED)) {
-            return this.doGetAllDisabled();
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        return this.doGet();
     }
 
     @PostMapping("/roles")

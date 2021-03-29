@@ -44,8 +44,10 @@ public class User extends GenericEntityImpl implements UserDetails {
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-    for (Role role : getRoles()) {
-      authorities.add(new SimpleGrantedAuthority(role.getName()));
+    if (getRoles() != null) {
+      for (Role role : getRoles()) {
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+      }
     }
     return authorities;
   }

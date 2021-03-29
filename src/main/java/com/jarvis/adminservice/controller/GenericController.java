@@ -1,11 +1,15 @@
 package com.jarvis.adminservice.controller;
 
+import com.jarvis.adminservice.constant.PathParameterConstants;
 import com.jarvis.adminservice.entity.GenericEntity;
 import com.jarvis.adminservice.request.GenericRequest;
 import com.jarvis.adminservice.response.GenericResponse;
 import com.jarvis.adminservice.service.GenericService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -15,6 +19,8 @@ public abstract class GenericController<T extends GenericEntity, S extends Gener
     public abstract T getEntity();
     public abstract U getService();
     public abstract W getResponse();
+
+    @Autowired HttpServletRequest request;
 
     protected W convertEntityToResponse(Object object) {
         W response = this.getResponse();
@@ -29,6 +35,20 @@ public abstract class GenericController<T extends GenericEntity, S extends Gener
 
     protected ResponseEntity<W> doGet(String identifier) {
         return this.generateResponseEntity(this.convertEntityToResponse(this.getService().getOne(identifier)), HttpStatus.OK);
+    }
+
+    protected ResponseEntity<W> doGet() {
+        String state = request.getParameter(PathParameterConstants.STATE);
+        if (state == null) {
+            return this.doGetAll();
+        }
+        if (state.equalsIgnoreCase(PathParameterConstants.ENABLED)) {
+            return this.doGetAllEnabled();
+        }
+        if (state.equalsIgnoreCase(PathParameterConstants.DISABLED)) {
+            return this.doGetAllDisabled();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
     protected ResponseEntity<W> doGetAll() {
@@ -48,8 +68,8 @@ public abstract class GenericController<T extends GenericEntity, S extends Gener
         return this.generateResponseEntity(this.convertEntityToResponse(savedEntity), HttpStatus.CREATED);
     }
 
-    protected ResponseEntity<W> doUpdate(S request) {
-        T entity = this.getService().update(request);
+    protected ResponseEntity<W> doUpdate(S request, String... ignoreProperties) {
+        T entity = this.getService().update(request, ignoreProperties);
         return this.generateResponseEntity(this.convertEntityToResponse(entity), HttpStatus.OK);
     }
 

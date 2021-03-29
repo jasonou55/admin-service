@@ -5,6 +5,7 @@ import com.jarvis.adminservice.enums.ErrorCode;
 import com.jarvis.adminservice.exception.ServiceException;
 import com.jarvis.adminservice.repository.GenericRepository;
 import com.jarvis.adminservice.request.GenericRequest;
+import com.jarvis.adminservice.util.BeanUtilities;
 import com.jarvis.adminservice.util.IdentifierGenerator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -60,10 +61,10 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public T update(S request) {
+    public T update(S request, String... ignoreProperties) {
         T entity = this.getOne(request.getIdentifier());
         request.setCreated(entity.getCreated());
-        BeanUtils.copyProperties(request, entity);
+        BeanUtils.copyProperties(request, entity, BeanUtilities.getIgnorePropertyNames(request, ignoreProperties));
         return this.save(entity);
     }
 

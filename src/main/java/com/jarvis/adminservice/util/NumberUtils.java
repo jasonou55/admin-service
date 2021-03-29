@@ -2,9 +2,9 @@ package com.jarvis.adminservice.util;
 
 import com.jarvis.adminservice.constant.SettingConstants;
 
-public class NumberUtilities {
+public class NumberUtils {
 
-    private NumberUtilities() {
+    private NumberUtils() {
     }
 
     public static String toBase(long original, int base) {
