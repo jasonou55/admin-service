@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserRoleRepository extends GenericRepository<UserRole> {
 
-    Optional<List<UserRole>> findByUserId(long userId);
+    Optional<List<UserRole>> findAllByUserId(long userId);
 }

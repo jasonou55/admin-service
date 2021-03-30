@@ -6,6 +6,7 @@ import com.jarvis.adminservice.response.UserResponse;
 import com.jarvis.adminservice.service.UserService;
 import com.jarvis.adminservice.util.DesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,5 +66,12 @@ public class UserController extends GenericController<User, UserRequest, UserRes
     @ResponseBody
     public ResponseEntity<UserResponse> disableAll(@RequestBody List<String> identifiers) {
         return this.doDisableAll(identifiers);
+    }
+
+    @PutMapping("/users/{identifier}/roles")
+    @ResponseBody
+    public ResponseEntity<UserResponse> assignRoles(@PathVariable String identifier, @RequestBody List<String> roleIdentifiers) {
+        userService.assignRolesToUser(identifier, roleIdentifiers);
+        return this.generateResponseEntity(this.convertEntityToResponse(null), HttpStatus.OK);
     }
 }

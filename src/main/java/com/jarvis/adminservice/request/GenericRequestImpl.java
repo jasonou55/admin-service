@@ -10,10 +10,6 @@ public class GenericRequestImpl implements GenericRequest {
     private long createdBy;
     private boolean enabled;
 
-    public GenericRequestImpl() {
-        this.enabled = true;
-    }
-
     @Override
     public String getIdentifier() {
         return identifier;

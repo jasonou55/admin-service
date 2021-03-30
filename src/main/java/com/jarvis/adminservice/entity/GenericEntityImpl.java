@@ -34,6 +34,10 @@ public class GenericEntityImpl implements GenericEntity {
     @Transient
     protected String identifier;
 
+    public GenericEntityImpl() {
+        this.enabled = true;
+    }
+
     @Override
     public long getId() {
         return id;

@@ -88,6 +88,10 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
         this.switchStateAll(identifiers, false);
     }
 
+    public T save(T entity) {
+        return this.repository().save(entity);
+    }
+
     private void switchStateAll(List<String> identifiers, boolean isEnable) {
         if (!identifiers.isEmpty()) {
             for (String identifier : identifiers) {
@@ -100,9 +104,5 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
         T entity = this.getOne(identifier);
         entity.setEnabled(isEnable);
         this.repository().save(entity);
-    }
-
-    private T save(T entity) {
-        return this.repository().save(entity);
     }
 }
