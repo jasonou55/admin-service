@@ -43,6 +43,10 @@ public class UserController extends GenericController<User, UserRequest, UserRes
         return this.doGet();
     }
 
+    @GetMapping("/users/{identifier}")
+    @ResponseBody
+    public ResponseEntity<UserResponse> getOne(@PathVariable String identifier) { return this.doGet(identifier); }
+
     @PostMapping("/users")
     @ResponseBody
     public ResponseEntity<UserResponse> create(@Validated @RequestBody UserRequest userRequest) {
