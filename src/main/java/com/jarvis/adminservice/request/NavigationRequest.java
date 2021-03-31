@@ -1,21 +1,13 @@
-package com.jarvis.adminservice.entity;
+package com.jarvis.adminservice.request;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import org.springframework.stereotype.Component;
 
-@Entity(name = "navigations")
-public class Navigation extends GenericEntityImpl {
+@Component
+public class NavigationRequest extends GenericRequestImpl {
 
-    @Column(nullable = false)
     private String icon;
-
-    @Column(nullable = false, unique = true)
     private String title;
-
-    @Column(nullable = false)
     private String toUrl;
-
-    @Column(nullable = false)
     private long orderIs;
 
     public String getIcon() {

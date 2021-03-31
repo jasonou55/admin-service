@@ -13,4 +13,22 @@ public class PingController {
     public ResponseEntity<String> ping() {
         return ResponseEntity.ok().body("Pong");
     }
+
+    @GetMapping("/all/1")
+    @ResponseBody
+    public ResponseEntity<String> all() {
+        return ResponseEntity.ok().body("All");
+    }
+
+    @GetMapping("/admin/1")
+    @ResponseBody
+    public ResponseEntity<String> admin() {
+        return ResponseEntity.ok().body("Admin");
+    }
+
+    @GetMapping("/root/1")
+    @ResponseBody
+    public ResponseEntity<String> root() {
+        return ResponseEntity.ok().body("Root");
+    }
 }

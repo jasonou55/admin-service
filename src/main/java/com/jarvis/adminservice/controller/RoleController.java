@@ -1,12 +1,10 @@
 package com.jarvis.adminservice.controller;
 
-import com.jarvis.adminservice.constant.PathParameterConstants;
 import com.jarvis.adminservice.entity.Role;
 import com.jarvis.adminservice.request.RoleRequest;
 import com.jarvis.adminservice.response.RoleResponse;
 import com.jarvis.adminservice.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
