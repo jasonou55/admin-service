@@ -4,12 +4,13 @@ import com.jarvis.adminservice.entity.Navigation;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class LoginResponse extends GenericResponseImpl {
 
     private String token;
-    private List<Navigation> navigation;
+    private Set<String> roles;
 
     public String getToken() {
         return token;
@@ -19,11 +20,11 @@ public class LoginResponse extends GenericResponseImpl {
         this.token = token;
     }
 
-    public List<Navigation> getNavigation() {
-        return navigation;
+    public Set<String> getRoles() {
+        return roles;
     }
 
-    public void setNavigation(final List<Navigation> navigation) {
-        this.navigation = navigation;
+    public void setRoles(final Set<String> roles) {
+        this.roles = roles;
     }
 }

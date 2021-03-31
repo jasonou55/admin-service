@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 public class SettingConstants {
 
     public static final String ALLOWED_CHARACTERS = "0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    public static final long USER_JWT_EXPIRE_TIME = 86400;
 }

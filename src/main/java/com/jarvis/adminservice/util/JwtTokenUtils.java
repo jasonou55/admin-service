@@ -13,6 +13,7 @@ import javax.xml.bind.DatatypeConverter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -21,7 +22,17 @@ public class JwtTokenUtils {
     private static final byte[] API_KEY_SECRET_BYTES = DatatypeConverter.parseBase64Binary(SecurityConstants.JWT_SECRET_KEY);
     private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(API_KEY_SECRET_BYTES);
 
-    public static String generate(String username, List<String> roles) {
+    public static String generate(String username) {
+        final Date createdDate = new Date();
+        return Jwts.builder()
+                .setHeaderParam("type", SecurityConstants.TOKEN_TYPE)
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+                .setIssuedAt(createdDate)
+                .setSubject(username)
+                .compact();
+    }
+
+    public static String generateWithRoles(String username, Set<String> roles) {
 
         final Date createdDate = new Date();
         return Jwts.builder()

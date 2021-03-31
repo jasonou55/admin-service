@@ -8,14 +8,14 @@ import com.jarvis.adminservice.repository.GenericRepository;
 import com.jarvis.adminservice.repository.UserRepository;
 import com.jarvis.adminservice.repository.UserRoleRepository;
 import com.jarvis.adminservice.request.UserRequest;
+import com.jarvis.adminservice.util.DesUtil;
 import com.jarvis.adminservice.util.IdentifierGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
 
 import java.util.ArrayList;
 import java.util.List;

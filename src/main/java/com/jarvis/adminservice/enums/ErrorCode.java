@@ -13,6 +13,7 @@ public enum ErrorCode {
      * Bucket 2
      */
     FORBIDDEN(20000, "You are not authorized to perform the request action."),
+    AUTHENTICATION_FAILED(20001, "Authentication failed"),
 
     /**
      * Internal Errors - internal/unexpected errors
@@ -20,7 +21,9 @@ public enum ErrorCode {
      */
     INTERNAL_ERROR_PROCESSOR(30000, "An internal error occurred while processing."),
     NULL_POINTER(30001, "An null pointer error occurred."),
-    GENERATE_IDENTIFIER_ERROR(30002, "Generate identifier failed.");
+    GENERATE_IDENTIFIER_ERROR(30002, "Generate identifier failed."),
+    ENCRYPT_PASSWORD_ERROR(30003, "An error occurred while encrypting.");
+
 
     private final int code;
     private final String message;
