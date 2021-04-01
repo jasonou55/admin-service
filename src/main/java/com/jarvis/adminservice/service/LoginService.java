@@ -47,7 +47,7 @@ public class LoginService {
         loginResponse.setSuccess(true);
         loginResponse.setToken(token);
         loginResponse.setRoles(roles);
-        redisUtils.set(token, String.join(",", roles), SettingConstants.USER_JWT_EXPIRE_TIME);
+        redisUtils.set(token, String.valueOf(System.currentTimeMillis()), SettingConstants.USER_JWT_EXPIRE_TIME);
         return loginResponse;
     }
 }
