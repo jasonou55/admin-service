@@ -27,9 +27,6 @@ public class LoginService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private RedisUtils redisUtils;
 
     public LoginResponse login(LoginRequest loginRequest) {

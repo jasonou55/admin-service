@@ -1,9 +1,7 @@
 package com.jarvis.adminservice.response;
 
-import com.jarvis.adminservice.entity.Navigation;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Set;
 
 @Component

@@ -14,6 +14,8 @@ public enum ErrorCode {
      */
     FORBIDDEN(20000, "You are not authorized to perform the request action."),
     AUTHENTICATION_FAILED(20001, "Authentication failed"),
+    ACCESS_DENIED(20002, "Insufficient permissions, access denied"),
+    UNAUTHORIZED(20003, "Reject unauthorized operation"),
 
     /**
      * Internal Errors - internal/unexpected errors

@@ -14,7 +14,7 @@ public class PingController {
         return ResponseEntity.ok().body("Pong");
     }
 
-    @GetMapping("/all/1")
+    @GetMapping("/public/1")
     @ResponseBody
     public ResponseEntity<String> all() {
         return ResponseEntity.ok().body("All");

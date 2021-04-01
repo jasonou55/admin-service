@@ -1,9 +1,7 @@
 package com.jarvis.adminservice.controller;
 
-import com.jarvis.adminservice.repository.UserRepository;
 import com.jarvis.adminservice.request.LoginRequest;
 import com.jarvis.adminservice.response.LoginResponse;
-import com.jarvis.adminservice.response.UserResponse;
 import com.jarvis.adminservice.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
