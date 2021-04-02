@@ -4,8 +4,7 @@ import com.jarvis.adminservice.entity.User;
 import com.jarvis.adminservice.request.UserRequest;
 import com.jarvis.adminservice.response.UserResponse;
 import com.jarvis.adminservice.service.UserService;
-import com.jarvis.adminservice.util.DesUtil;
-import com.jarvis.adminservice.util.Md5Utils;
+import com.jarvis.adminservice.util.EncryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +50,7 @@ public class UserController extends GenericController<User, UserRequest, UserRes
     @PostMapping("/users")
     @ResponseBody
     public ResponseEntity<UserResponse> create(@Validated @RequestBody UserRequest userRequest) {
-        userRequest.setPassword(Md5Utils.encrypt(DesUtil.getDecryptString(userRequest.getPassword())));
+        userRequest.setPassword(EncryptUtils.md5Encrypt(EncryptUtils.aesDecrypt(userRequest.getPassword())));
         return this.doCreate(userRequest);
     }
 

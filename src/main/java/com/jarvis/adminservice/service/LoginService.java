@@ -8,9 +8,8 @@ import com.jarvis.adminservice.exception.ServiceException;
 import com.jarvis.adminservice.repository.UserRepository;
 import com.jarvis.adminservice.request.LoginRequest;
 import com.jarvis.adminservice.response.LoginResponse;
-import com.jarvis.adminservice.util.DesUtil;
+import com.jarvis.adminservice.util.EncryptUtils;
 import com.jarvis.adminservice.util.JwtTokenUtils;
-import com.jarvis.adminservice.util.Md5Utils;
 import com.jarvis.adminservice.util.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,7 @@ public class LoginService {
 
     public LoginResponse login(LoginRequest loginRequest) {
         Optional<User> userOptional = userRepository.findByUsernameAndPassword(loginRequest.getUsername(),
-                Md5Utils.encrypt(DesUtil.getDecryptString(loginRequest.getPassword())));
+                EncryptUtils.md5Encrypt(EncryptUtils.aesDecrypt(loginRequest.getPassword())));
         if (!userOptional.isPresent()) {
             throw new ServiceException(ErrorCode.AUTHENTICATION_FAILED, "Username or password is incorrect.", HttpStatus.BAD_GATEWAY);
         }

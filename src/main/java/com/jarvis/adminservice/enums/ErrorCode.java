@@ -24,7 +24,8 @@ public enum ErrorCode {
     INTERNAL_ERROR_PROCESSOR(30000, "An internal error occurred while processing."),
     NULL_POINTER(30001, "An null pointer error occurred."),
     GENERATE_IDENTIFIER_ERROR(30002, "Generate identifier failed."),
-    ENCRYPT_PASSWORD_ERROR(30003, "An error occurred while encrypting.");
+    ENCRYPT_ERROR(30003, "An error occurred while encrypting."),
+    DECRYPT_ERROR(30004, "An error occurred while decrypting.");
 
 
     private final int code;
