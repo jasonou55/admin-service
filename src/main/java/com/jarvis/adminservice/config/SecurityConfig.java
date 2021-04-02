@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers("/admin/**").hasAuthority("admin")
                 .antMatchers("/root/**").hasAuthority("root")
+                .antMatchers("/management/**").hasAnyAuthority("admin", "root")
                 .anyRequest().authenticated()
                 .and()
                 //添加自定义Filter
