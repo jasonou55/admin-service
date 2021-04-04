@@ -36,6 +36,8 @@ public class User extends GenericEntityImpl implements UserDetails {
   private String email;
 
   private String phone;
+  private long organization;
+
   private boolean accountNonExpired;
   private boolean accountNonLocked;
   private boolean credentialsNonExpired;
@@ -130,5 +132,13 @@ public class User extends GenericEntityImpl implements UserDetails {
 
   @Override public boolean isEnabled() {
     return enabled;
+  }
+
+  public long getOrganization() {
+    return organization;
+  }
+
+  public void setOrganization(final long organization) {
+    this.organization = organization;
   }
 }

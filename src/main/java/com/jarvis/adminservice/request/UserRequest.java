@@ -10,6 +10,7 @@ public class UserRequest extends GenericRequestImpl {
     private String name;
     private String email;
     private String phone;
+    private long organization;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -82,5 +83,13 @@ public class UserRequest extends GenericRequestImpl {
 
     public void setCredentialsNonExpired(final boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public long getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(final long organization) {
+        this.organization = organization;
     }
 }
