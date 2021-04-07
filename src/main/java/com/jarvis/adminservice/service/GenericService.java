@@ -42,15 +42,15 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
     }
 
     public List<T> getAll() {
-        return this.repository().findAllByOrderByIdDesc();
+        return this.repository().findAllByOrderByUpdatedDesc();
     }
 
     public List<T> getAllEnabled() {
-        return this.repository().findAllByEnabledOrderByIdDesc(true);
+        return this.repository().findAllByEnabledOrderByUpdatedDesc(true);
     }
 
     public List<T> getAllDisabled() {
-        return this.repository().findAllByEnabledOrderByIdDesc(false);
+        return this.repository().findAllByEnabledOrderByUpdatedDesc(false);
     }
 
     @Transactional(rollbackFor = Exception.class)
