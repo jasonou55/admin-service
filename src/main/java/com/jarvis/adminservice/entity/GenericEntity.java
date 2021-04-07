@@ -10,8 +10,8 @@ public interface GenericEntity extends Serializable {
     long getCreated();
     void setCreated(final long created);
 
-    long getCreatedBy();
-    void setCreatedBy(final long createdBy);
+    long getUpdated();
+    void setUpdated(final long updated);
 
     boolean isEnabled();
     void setEnabled(final boolean enabled);

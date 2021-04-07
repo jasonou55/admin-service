@@ -57,13 +57,13 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
     public T create(S request) {
         T entity = this.entity();
         BeanUtils.copyProperties(request, entity);
+        entity.setCreated(System.currentTimeMillis());
         return this.save(entity);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public T update(S request, String... ignoreProperties) {
         T entity = this.getOne(request.getIdentifier());
-        request.setCreated(entity.getCreated());
         BeanUtils.copyProperties(request, entity, BeanUtilities.getIgnorePropertyNames(request, ignoreProperties));
         return this.save(entity);
     }
@@ -89,6 +89,7 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
     }
 
     public T save(T entity) {
+        entity.setUpdated(System.currentTimeMillis());
         return this.repository().save(entity);
     }
 

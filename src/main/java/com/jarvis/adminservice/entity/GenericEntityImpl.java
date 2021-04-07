@@ -26,7 +26,7 @@ public class GenericEntityImpl implements GenericEntity {
     protected long created;
 
     @Column(nullable = false)
-    protected long createdBy;
+    protected long updated;
 
     @Column(nullable = false)
     protected boolean enabled;
@@ -57,14 +57,12 @@ public class GenericEntityImpl implements GenericEntity {
         this.created = created;
     }
 
-    @Override
-    public long getCreatedBy() {
-        return createdBy;
+    @Override public long getUpdated() {
+        return updated;
     }
 
-    @Override
-    public void setCreatedBy(final long createdBy) {
-        this.createdBy = createdBy;
+    @Override public void setUpdated(final long updated) {
+        this.updated = updated;
     }
 
     @Override
