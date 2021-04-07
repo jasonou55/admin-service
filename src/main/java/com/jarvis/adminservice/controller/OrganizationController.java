@@ -46,9 +46,9 @@ public class OrganizationController extends GenericController<Organization, Orga
     @ResponseBody
     public ResponseEntity<OrganizationResponse> create(@Validated @RequestBody OrganizationRequest organizationRequest) {
         if (organizationService.hasExist(organizationRequest)) {
-            return this.doCreate(organizationRequest);
+            throw new ServiceException(ErrorCode.DUPLICATED_UNIQUE_FIELD, "The organization name already exist.", HttpStatus.BAD_REQUEST);
         }
-        throw new ServiceException(ErrorCode.DUPLICATED_UNIQUE_FIELD, "The organization name already exist.", HttpStatus.BAD_REQUEST);
+        return this.doCreate(organizationRequest);
     }
 
     @PutMapping("/organizations")
