@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("~/management")
+@RequestMapping("/management")
 public class OrganizationController extends GenericController<Organization, OrganizationRequest, OrganizationResponse, OrganizationService> {
 
     @Autowired OrganizationService organizationService;
