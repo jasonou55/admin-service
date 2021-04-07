@@ -1,10 +1,13 @@
 package com.jarvis.adminservice.controller;
 
 import com.jarvis.adminservice.entity.Organization;
+import com.jarvis.adminservice.enums.ErrorCode;
+import com.jarvis.adminservice.exception.ServiceException;
 import com.jarvis.adminservice.request.OrganizationRequest;
 import com.jarvis.adminservice.response.OrganizationResponse;
 import com.jarvis.adminservice.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,7 +45,10 @@ public class OrganizationController extends GenericController<Organization, Orga
     @PostMapping("/organizations")
     @ResponseBody
     public ResponseEntity<OrganizationResponse> create(@Validated @RequestBody OrganizationRequest organizationRequest) {
-        return this.doCreate(organizationRequest);
+        if (organizationService.hasExist(organizationRequest)) {
+            return this.doCreate(organizationRequest);
+        }
+        throw new ServiceException(ErrorCode.DUPLICATED_UNIQUE_FIELD, "The organization name already exist.", HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/organizations")

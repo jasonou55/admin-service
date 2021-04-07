@@ -7,6 +7,7 @@ public enum ErrorCode {
      * Bucket 1
      */
     NOT_FOUND(10000, "Entity not found."),
+    DUPLICATED_UNIQUE_FIELD(10001, "Unique field already exists"),
 
     /**
      * Auth Errors - errors codes related to the Authentication piece
