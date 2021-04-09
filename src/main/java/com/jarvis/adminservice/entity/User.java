@@ -1,6 +1,7 @@
 package com.jarvis.adminservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -20,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User extends GenericEntityImpl implements UserDetails {
 
   @Column(nullable = false, unique = true)

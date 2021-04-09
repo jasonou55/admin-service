@@ -42,22 +42,21 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
     }
 
     public List<T> getAll() {
-        return this.repository().findAllByOrderByUpdatedDesc();
+        return this.repository().findAllByOrderByLastModifiedDateDesc();
     }
 
     public List<T> getAllEnabled() {
-        return this.repository().findAllByEnabledOrderByUpdatedDesc(true);
+        return this.repository().findAllByEnabledOrderByLastModifiedDateDesc(true);
     }
 
     public List<T> getAllDisabled() {
-        return this.repository().findAllByEnabledOrderByUpdatedDesc(false);
+        return this.repository().findAllByEnabledOrderByLastModifiedDateDesc(false);
     }
 
     @Transactional(rollbackFor = Exception.class)
     public T create(S request) {
         T entity = this.entity();
         BeanUtils.copyProperties(request, entity);
-        entity.setCreated(System.currentTimeMillis());
         return this.save(entity);
     }
 
@@ -89,7 +88,6 @@ public abstract class GenericService<T extends GenericEntity, S extends GenericR
     }
 
     public T save(T entity) {
-        entity.setUpdated(System.currentTimeMillis());
         return this.repository().save(entity);
     }
 

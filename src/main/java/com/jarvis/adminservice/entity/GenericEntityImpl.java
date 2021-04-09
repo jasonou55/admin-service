@@ -4,8 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jarvis.adminservice.enums.ErrorCode;
 import com.jarvis.adminservice.exception.ServiceException;
 import com.jarvis.adminservice.util.IdentifierGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.http.HttpStatus;
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,18 +21,13 @@ import javax.persistence.Transient;
 import java.util.Optional;
 
 @MappedSuperclass
-public class GenericEntityImpl implements GenericEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class GenericEntityImpl extends Auditable<String> implements GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     protected long id;
-
-    @Column(nullable = false)
-    protected long created;
-
-    @Column(nullable = false)
-    protected long updated;
 
     @Column(nullable = false)
     protected boolean enabled;
@@ -46,23 +47,6 @@ public class GenericEntityImpl implements GenericEntity {
     @Override
     public void setId(final long id) {
         this.id = id;
-    }
-    @Override
-    public long getCreated() {
-        return created;
-    }
-
-    @Override
-    public void setCreated(final long created) {
-        this.created = created;
-    }
-
-    @Override public long getUpdated() {
-        return updated;
-    }
-
-    @Override public void setUpdated(final long updated) {
-        this.updated = updated;
     }
 
     @Override
@@ -86,7 +70,7 @@ public class GenericEntityImpl implements GenericEntity {
     @Override
     public void setIdentifier() {
 
-        Optional<String> identifierOptional = IdentifierGenerator.getIdentifierFromId(this.id, this.created);
+        Optional<String> identifierOptional = IdentifierGenerator.getIdentifierFromId(this.id, this.createdDate);
         if (!identifierOptional.isPresent()) {
             throw new ServiceException(
                     ErrorCode.GENERATE_IDENTIFIER_ERROR,

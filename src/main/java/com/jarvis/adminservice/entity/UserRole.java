@@ -1,9 +1,13 @@
 package com.jarvis.adminservice.entity;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 
 @Entity(name = "user_role")
+@EntityListeners(AuditingEntityListener.class)
 public class UserRole extends GenericEntityImpl {
 
     @Column(nullable = false)

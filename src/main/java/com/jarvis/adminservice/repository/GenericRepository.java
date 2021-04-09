@@ -11,7 +11,7 @@ import java.util.List;
 public interface GenericRepository<T extends GenericEntity> extends JpaRepository<T, Long>,
         JpaSpecificationExecutor<T> {
 
-    List<T> findAllByEnabledOrderByUpdatedDesc(boolean enabled);
+    List<T> findAllByEnabledOrderByLastModifiedDateDesc(boolean enabled);
 
-    List<T> findAllByOrderByUpdatedDesc();
+    List<T> findAllByOrderByLastModifiedDateDesc();
 }

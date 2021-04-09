@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Component
@@ -14,10 +15,10 @@ public class IdentifierGenerator {
     private IdentifierGenerator() {
     }
 
-    public static Optional<String> getIdentifierFromId(long id, long timestamp) {
+    public static Optional<String> getIdentifierFromId(long id, Date timestamp) {
         StringBuilder identifierBuilder = new StringBuilder();
         String idStr = String.valueOf(id);
-        String timestampStr = String.valueOf(timestamp);
+        String timestampStr = String.valueOf(timestamp.getTime());
         int idLength = idStr.length();
         identifierBuilder.append(idStr);
         if (timestampStr.length() - (13 - idLength) > 0) {
