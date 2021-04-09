@@ -58,7 +58,6 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
      * 获取用户认证信息 Authentication
      */
     private UsernamePasswordAuthenticationToken getAuthentication(String authorization) {
-        LOGGER.info("Get authentication");
         String token = authorization.replace(SecurityConstants.TOKEN_PREFIX, "");
         try {
             String username = JwtTokenUtils.getUsernameByToken(token);
