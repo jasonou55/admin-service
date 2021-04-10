@@ -1,6 +1,7 @@
 package com.jarvis.adminservice.filter;
 
 import com.jarvis.adminservice.constant.SecurityConstants;
+import com.jarvis.adminservice.constant.SettingConstants;
 import com.jarvis.adminservice.service.UserService;
 import com.jarvis.adminservice.util.JwtTokenUtils;
 import com.jarvis.adminservice.util.RedisUtils;
@@ -65,6 +66,8 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
                 // 这里又从数据库拿了一遍,避免用户的角色信息有变
                 UserDetails userDetails = userService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, null, userDetails.getAuthorities());
+                // 刷新token的时效
+                redisUtils.refreshExpire(token, SettingConstants.USER_JWT_EXPIRE_TIME);
                 return userDetails.isEnabled() ? usernamePasswordAuthenticationToken : null;
             }
         } catch (MalformedJwtException | IllegalArgumentException exception) {

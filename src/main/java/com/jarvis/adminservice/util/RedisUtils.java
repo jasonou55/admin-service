@@ -16,7 +16,7 @@ public class RedisUtils {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    public boolean expire(String key, long time) {
+    public boolean refreshExpire(String key, long time) {
         try {
             if (time > 0) {
                 redisTemplate.expire(key, time, TimeUnit.SECONDS);
