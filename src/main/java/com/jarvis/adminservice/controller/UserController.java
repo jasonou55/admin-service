@@ -8,6 +8,7 @@ import com.jarvis.adminservice.util.EncryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,16 +41,19 @@ public class UserController extends GenericController<User, UserRequest, UserRes
     }
 
     @GetMapping("/users")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> get() {
         return this.doGet();
     }
 
     @GetMapping("/users/{identifier}")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> getOne(@PathVariable String identifier) { return this.doGet(identifier); }
 
     @PostMapping("/users")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> create(@Validated @RequestBody UserRequest userRequest) {
         userRequest.setPassword(EncryptUtils.md5Encrypt(EncryptUtils.aesDecrypt(userRequest.getPassword())));
@@ -57,22 +61,26 @@ public class UserController extends GenericController<User, UserRequest, UserRes
     }
 
     @PutMapping("/users")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> update(@Validated @RequestBody UserRequest userRequest) {
         return this.doUpdate(userRequest, "password");
     }
 
     @DeleteMapping("/users/{identifier}")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> disable(@PathVariable String identifier) { return this.doDisable(identifier); }
 
     @DeleteMapping("/users")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> disableAll(@RequestBody List<String> identifiers) {
         return this.doDisableAll(identifiers);
     }
 
     @PutMapping("/users/{identifier}/roles")
+    @PreAuthorize("hasAnyRole('ROLE_root', 'ROLE_ADMIN')")
     @ResponseBody
     public ResponseEntity<UserResponse> assignRoles(@PathVariable String identifier, @RequestBody List<String> roleIdentifiers) {
         userService.assignRolesToUser(identifier, roleIdentifiers);

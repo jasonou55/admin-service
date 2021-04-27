@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         errorResponse.setSuccess(false);
         errorResponse.setErrorCode(ErrorCode.NULL_POINTER);
         errorResponse.setMessage(ErrorCode.NULL_POINTER.getMessage());
-
+        np.printStackTrace();
         LOGGER.error("Get NullPointerException error. {} ", (Object) np.getStackTrace());
 
         return ResponseEntity.status(500).body(errorResponse);
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         errorResponse.setSuccess(false);
         errorResponse.setErrorCode(se.getErrorCode());
         errorResponse.setMessage(se.getMessage());
-
+        se.printStackTrace();
         LOGGER.error("Get ServiceException error. {} ", (Object) se.getStackTrace());
 
         return ResponseEntity.status(se.getStatusCode()).body(errorResponse);
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         errorResponse.setSuccess(false);
         errorResponse.setErrorCode(ErrorCode.INTERNAL_ERROR_PROCESSOR);
         errorResponse.setMessage(e.getMessage());
-
+        e.printStackTrace();
         LOGGER.error("Get Exception error. {} ", (Object) e.getStackTrace());
 
         return ResponseEntity.status(500).body(errorResponse);

@@ -9,6 +9,7 @@ import com.jarvis.adminservice.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,12 +38,14 @@ public class OrganizationController extends GenericController<Organization, Orga
     public OrganizationResponse getResponse() { return new OrganizationResponse(); }
 
     @GetMapping("/organizations")
+    @PreAuthorize("hasRole('ROLE_root')")
     @ResponseBody
     public ResponseEntity<OrganizationResponse> get() {
         return this.doGet();
     }
 
     @PostMapping("/organizations")
+    @PreAuthorize("hasRole('ROLE_root')")
     @ResponseBody
     public ResponseEntity<OrganizationResponse> create(@Validated @RequestBody OrganizationRequest organizationRequest) {
         if (organizationService.hasExist(organizationRequest)) {
@@ -52,12 +55,14 @@ public class OrganizationController extends GenericController<Organization, Orga
     }
 
     @PutMapping("/organizations")
+    @PreAuthorize("hasRole('ROLE_root')")
     @ResponseBody
     public ResponseEntity<OrganizationResponse> update(@Validated @RequestBody OrganizationRequest organizationRequest) {
         return this.doUpdate(organizationRequest);
     }
 
     @DeleteMapping("/organizations")
+    @PreAuthorize("hasRole('ROLE_root')")
     @ResponseBody
     public ResponseEntity<OrganizationResponse> disableAll(@RequestBody List<String> identifiers) {
         return this.doDisableAll(identifiers);
