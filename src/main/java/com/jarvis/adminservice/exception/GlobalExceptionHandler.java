@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final String ACCESS_DENIED_EXCEPTION = "AccessDeniedException";
 
     @ExceptionHandler(NullPointerException.class)
     @ResponseBody
@@ -48,13 +49,18 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
 
+        int statusCode = 500;
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setSuccess(false);
         errorResponse.setErrorCode(ErrorCode.INTERNAL_ERROR_PROCESSOR);
         errorResponse.setMessage(e.getMessage());
+        if (e.getClass().getSimpleName().equalsIgnoreCase(ACCESS_DENIED_EXCEPTION)) {
+            statusCode = 403;
+            errorResponse.setErrorCode(ErrorCode.ACCESS_DENIED);
+        }
         e.printStackTrace();
         LOGGER.error("Get Exception error. {} ", (Object) e.getStackTrace());
 
-        return ResponseEntity.status(500).body(errorResponse);
+        return ResponseEntity.status(statusCode).body(errorResponse);
     }
 }
